@@ -11,10 +11,14 @@
 - **Next-bus API** (`GET /api/next-bus?route=2&stop=library`): returns the next two
   arrivals at a stop, how many minutes away they are, and where the bus is now.
 - **Voice-agent API** (`POST /api/vapi`): a webhook for a [Vapi](https://vapi.ai) voice
-  agent. A caller can ask "When's the next Route 2 bus to the library?" and the agent
+  agent. A caller can ask "When's the next Route 1 bus to the mall?" and the agent
   reads back a short answer such as:
-  *"The next Route 2 bus reaches Main Library in 13 minutes, then another in 43 minutes.
-  It's currently near St. Michael's Dr & Llano St."*
+  *"The next Route 1 bus reaches Santa Fe Place Mall in 10 minutes heading to Sheridan
+  Transit Center, then another in 25 minutes. It's 2 stops away, just left Cerrillos and
+  St. Michael's."* The location always describes the **same bus** as the first arrival
+  (the same bus ID shown on the map).
+- **Office background audio** (`/audio/office-quiet.mp3`): a very quiet, 30-second,
+  seamlessly looping office ambience for the voice agent's background sound.
 
 No database, no paid services, no API keys.
 
@@ -36,7 +40,10 @@ Caller ◀──(speech)── Vapi ◀──(one short sentence)─────
    (minutes between buses) for weekdays, Saturday and Sunday.
 2. **The simulation** (`lib/simulation.js`) needs only the clock. If a trip left
    Sheridan Transit Center 10 minutes ago, and we know how long each leg takes, we know
-   exactly where that bus is. Positions between stops are a straight-line slide.
+   exactly where that bus is. Between stops, the bus slides along real streets:
+   `routes.json` stores road **waypoints** for each leg (fetched once from the free
+   OpenStreetMap router OSRM by `scripts/fetch-waypoints.js`), so the map lines and
+   the buses follow the roads.
 3. **The APIs** (`api/*.js`) are Vercel serverless functions. They read the request,
    ask the simulation, and return JSON. They always return HTTP 200 (even for
    "stop not found") so the voice agent can read the message out loud.
@@ -121,14 +128,19 @@ api/next-bus.js       GET  /api/next-bus
 api/vapi.js           POST /api/vapi  (Vapi tool-call webhook)
 api/live.js           GET  /api/live  (data for the map)
 public/index.html     the live map page
+public/audio/         office-quiet.mp3 background ambience for the voice agent
 test/                 tests for the schedule math (node --test)
 dev-server.js         tiny local server for `npm start` (Vercel doesn't use it)
+scripts/fetch-waypoints.js    one-time: get street paths between stops from OSRM
+                              (re-run after moving a stop: node scripts/fetch-waypoints.js)
+scripts/make-office-audio.py  one-time: generate the background audio (numpy + ffmpeg)
 ```
 
 ## What I'd improve next
 
-- **Real street shapes**: draw routes along the actual streets (GTFS `shapes.txt`)
-  instead of straight lines between stops.
+- **Exact stop positions**: a few stops sit on a side road instead of the named street,
+  which makes small detours in the line; move them onto the street and re-run
+  `scripts/fetch-waypoints.js` (with real data, GTFS `shapes.txt` replaces this).
 - **Real data**: plug in a live GTFS-realtime feed as described above.
 - **Both directions in the voice answer**: let the caller say which way they're going
   ("toward the mall") instead of listing whichever bus comes first.

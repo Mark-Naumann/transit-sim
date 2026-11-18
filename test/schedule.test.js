@@ -23,15 +23,52 @@ test('Route 2 next two arrivals at the library are 30 minutes apart', () => {
   // At 10:00 the 10:00 trip reaches the library at 10:03, the next at 10:33.
   const answer = sim.answerNextBus('2', 'library', at(MONDAY, 10, 0));
   assert.deepStrictEqual(answer.arrivals.map((a) => a.minutesAway), [3, 33]);
-  assert.strictEqual(answer.arrivals[0].busCurrentlyNear, 'Sheridan Transit Center');
+  // At exactly 10:00 the 10:00 bus is leaving Sheridan, 1 stop from the library.
+  assert.strictEqual(answer.arrivals[0].bus.justLeft, 'Sheridan Transit Center');
+  assert.strictEqual(answer.arrivals[0].bus.stopsAway, 1);
 });
 
-test('on the loop, the next bus is the one finishing its previous lap', () => {
-  // At 10:20 the 10:00 bus is past the hospital (10:12) and St. Michael's (10:17).
-  // It will start its 10:30 lap and reach the library at 10:33.
+test('location describes the SAME bus as the first arrival, in plain words', () => {
+  // Route 1, Monday 10:13. The 10:00 bus left Cerrillos & St. Michael's at 10:12
+  // and reaches the Mall at 10:23 (Cerrillos & Rodeo is in between).
+  const clock = at(MONDAY, 10, 13);
+  const answer = sim.answerNextBus('1', 'the mall', clock);
+  const next = answer.arrivals[0];
+
+  assert.strictEqual(next.minutesAway, 10);
+  assert.strictEqual(next.bus.id, '1-1000AM');
+  assert.match(answer.message, /It's 2 stops away, just left Cerrillos and St\. Michael's\./);
+
+  // The map must show that same bus at that same spot.
+  const onMap = sim.getVehiclePositions(clock).find((v) => v.id === next.bus.id);
+  assert.strictEqual(onMap.lastStop, next.bus.justLeft);
+});
+
+test('every minute of a weekday, at every stop, the location matches the arriving bus', () => {
+  for (let minute = 0; minute < 24 * 60; minute++) {
+    const clock = { day: MONDAY, minutes: minute };
+    const buses = sim.getVehiclePositions(clock);
+    for (const route of sim.routes) {
+      for (const stop of route.stops) {
+        const [next] = sim.getArrivals(route, stop.id, clock, 1);
+        if (!next || next.bus.status !== 'on-the-way') continue;
+        const onMap = buses.find((v) => v.id === next.bus.id);
+        assert.ok(onMap, `bus ${next.bus.id} should be on the map at minute ${minute}`);
+        assert.strictEqual(onMap.lastStop, next.bus.justLeft);
+        assert.ok(next.bus.stopsAway >= 0);
+      }
+    }
+  }
+});
+
+test('the old bug: Route 2 no longer describes the previous lap\'s bus', () => {
+  // At 10:20 the 10:00 bus is near St. Michael's & Llano, but the next bus to
+  // the library is the 10:30 trip, which hasn't left Sheridan yet.
   const answer = sim.answerNextBus('2', 'library', at(MONDAY, 10, 20));
   assert.strictEqual(answer.arrivals[0].minutesAway, 13);
-  assert.match(answer.message, /currently near St\. Michael's Dr & Llano St/);
+  assert.strictEqual(answer.arrivals[0].bus.id, '2-1030AM');
+  assert.match(answer.message, /hasn't left yet\. It leaves Sheridan Transit Center at 10:30 AM\./);
+  assert.doesNotMatch(answer.message, /Llano/);
 });
 
 test('loose stop names all match the Main Library', () => {
@@ -83,14 +120,24 @@ test('no buses on the map on Sunday, some on Monday midday', () => {
   assert.ok(sim.getVehiclePositions(at(MONDAY, 12, 0)).length > 0);
 });
 
-test('a bus halfway between two stops is placed between them on the map', () => {
+test('a bus between two stops sits on the street line drawn on the map', () => {
   // Route 4 trip leaves at 12:30; Sheridan -> Canyon Rd takes 5 min.
-  // At 12:32:30 the bus is halfway there.
+  // At 12:32:30 the bus is halfway there, somewhere on the drawn street path.
   const clock = { day: MONDAY, minutes: 12 * 60 + 32.5 };
   const bus = sim.getVehiclePositions(clock).find((v) => v.id === '4-1230PM');
-  const [sheridan, canyon] = sim.findRoute('4').stops;
-  assert.ok(Math.abs(bus.lat - (sheridan.lat + canyon.lat) / 2) < 1e-9);
   assert.strictEqual(bus.lastStop, 'Sheridan Transit Center');
+  assert.strictEqual(bus.nextStop, 'Canyon Rd');
+
+  // Distance from the bus to the nearest piece of the line (should be ~0).
+  const line = sim.getLiveSnapshot(clock).routes.find((r) => r.id === '4').path;
+  const distanceToPiece = ([px, py], [ax, ay], [bx, by]) => {
+    const len = (bx - ax) ** 2 + (by - ay) ** 2;
+    const t = len === 0 ? 0 : Math.max(0, Math.min(1, ((px - ax) * (bx - ax) + (py - ay) * (by - ay)) / len));
+    return Math.hypot(px - (ax + t * (bx - ax)), py - (ay + t * (by - ay)));
+  };
+  const closest = Math.min(...line.slice(1).map((p, i) => distanceToPiece([bus.lat, bus.lng], line[i], p)));
+  assert.ok(closest < 1e-9, `bus is ${closest} degrees off the line`);
+  assert.ok(line.length > 10, 'route line should follow streets, not just connect 3 stops');
 });
 
 test('real time is converted to Santa Fe time', () => {

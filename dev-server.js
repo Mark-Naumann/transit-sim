@@ -35,10 +35,21 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // A real file in /public (like /audio/office-quiet.mp3) -> send that file.
+  // path.normalize + the startsWith check stop "../" tricks from leaving /public.
+  const publicDir = path.join(__dirname, 'public');
+  const file = path.join(publicDir, path.normalize(decodeURIComponent(url.pathname)));
+  if (file.startsWith(publicDir + path.sep) && fs.existsSync(file) && fs.statSync(file).isFile()) {
+    res.setHeader('Content-Type', CONTENT_TYPES[path.extname(file)] || 'application/octet-stream');
+    return fs.createReadStream(file).pipe(res);
+  }
+
   // Anything else -> serve the map page.
-  const page = path.join(__dirname, 'public', 'index.html');
   res.setHeader('Content-Type', 'text/html');
-  fs.createReadStream(page).pipe(res);
+  fs.createReadStream(path.join(publicDir, 'index.html')).pipe(res);
 });
+
+// What kind of file each extension is, so the browser knows how to open it.
+const CONTENT_TYPES = { '.html': 'text/html', '.mp3': 'audio/mpeg', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png' };
 
 server.listen(PORT, () => console.log(`transit-sim running at http://localhost:${PORT}`));

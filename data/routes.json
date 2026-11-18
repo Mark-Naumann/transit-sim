@@ -9,18 +9,137 @@
       "color": "#d62828",
       "shape": "out-and-back",
       "stops": [
-        { "id": "sheridan", "name": "Sheridan Transit Center", "aliases": ["downtown", "plaza", "transit center", "sheridan"], "lat": 35.6884, "lng": -105.9405 },
-        { "id": "railyard", "name": "Railyard", "aliases": ["rail yard", "santa fe depot", "depot", "railyard station"], "lat": 35.6838, "lng": -105.9466 },
-        { "id": "cerrillos-stmichaels", "name": "Cerrillos Rd & St. Michael's Dr", "aliases": ["cerrillos and st michaels", "st michaels and cerrillos"], "lat": 35.6578, "lng": -105.9737 },
-        { "id": "cerrillos-rodeo", "name": "Cerrillos Rd & Rodeo Rd", "aliases": ["cerrillos and rodeo", "rodeo and cerrillos"], "lat": 35.6386, "lng": -106.0125 },
-        { "id": "mall", "name": "Santa Fe Place Mall", "aliases": ["mall", "santa fe place"], "lat": 35.6335, "lng": -106.0205 }
+        {
+          "id": "sheridan",
+          "name": "Sheridan Transit Center",
+          "aliases": [
+            "downtown",
+            "plaza",
+            "transit center",
+            "sheridan"
+          ],
+          "lat": 35.6884,
+          "lng": -105.9405
+        },
+        {
+          "id": "railyard",
+          "name": "Railyard",
+          "aliases": [
+            "rail yard",
+            "santa fe depot",
+            "depot",
+            "railyard station"
+          ],
+          "lat": 35.6838,
+          "lng": -105.9466
+        },
+        {
+          "id": "cerrillos-stmichaels",
+          "name": "Cerrillos Rd & St. Michael's Dr",
+          "aliases": [
+            "cerrillos and st michaels",
+            "st michaels and cerrillos"
+          ],
+          "lat": 35.6578,
+          "lng": -105.9737
+        },
+        {
+          "id": "cerrillos-rodeo",
+          "name": "Cerrillos Rd & Rodeo Rd",
+          "aliases": [
+            "cerrillos and rodeo",
+            "rodeo and cerrillos"
+          ],
+          "lat": 35.6386,
+          "lng": -106.0125
+        },
+        {
+          "id": "mall",
+          "name": "Santa Fe Place Mall",
+          "aliases": [
+            "mall",
+            "santa fe place"
+          ],
+          "lat": 35.6335,
+          "lng": -106.0205
+        }
       ],
-      "travelMinutes": [4, 8, 7, 4],
+      "travelMinutes": [
+        4,
+        8,
+        7,
+        4
+      ],
       "service": {
-        "weekday":  { "firstTrip": "05:30", "lastTrip": "22:00", "headwayMinutes": 15 },
-        "saturday": { "firstTrip": "07:00", "lastTrip": "20:00", "headwayMinutes": 30 },
+        "weekday": {
+          "firstTrip": "05:30",
+          "lastTrip": "22:00",
+          "headwayMinutes": 15
+        },
+        "saturday": {
+          "firstTrip": "07:00",
+          "lastTrip": "20:00",
+          "headwayMinutes": 30
+        },
         "sunday": null
-      }
+      },
+      "waypoints": [
+        [
+          [35.68844, -105.94155],
+          [35.68789, -105.94185],
+          [35.6883, -105.94346],
+          [35.68764, -105.94373],
+          [35.68639, -105.94505],
+          [35.68429, -105.94595],
+          [35.68367, -105.94644]
+        ],
+        [
+          [35.68367, -105.94644],
+          [35.68191, -105.94852],
+          [35.6812, -105.94883],
+          [35.68038, -105.94877],
+          [35.68014, -105.94897],
+          [35.67979, -105.95003],
+          [35.6783, -105.95313],
+          [35.67657, -105.95556],
+          [35.67229, -105.96225],
+          [35.66567, -105.97159],
+          [35.66275, -105.97725],
+          [35.66132, -105.97659],
+          [35.66036, -105.97571],
+          [35.6596, -105.97439],
+          [35.65922, -105.97285],
+          [35.65804, -105.97271]
+        ],
+        [
+          [35.65804, -105.97271],
+          [35.65941, -105.97278],
+          [35.65971, -105.97409],
+          [35.6603, -105.97526],
+          [35.66109, -105.97612],
+          [35.66259, -105.97707],
+          [35.66275, -105.97725],
+          [35.66267, -105.9774],
+          [35.65501, -105.99239],
+          [35.64234, -106.01283],
+          [35.64133, -106.01196],
+          [35.63982, -106.01155],
+          [35.63891, -106.01183],
+          [35.63857, -106.0118],
+          [35.63838, -106.01269],
+          [35.63853, -106.01271]
+        ],
+        [
+          [35.63853, -106.01271],
+          [35.63838, -106.01269],
+          [35.63834, -106.01313],
+          [35.63835, -106.01513],
+          [35.63863, -106.01644],
+          [35.63907, -106.01744],
+          [35.6338, -106.02068],
+          [35.63308, -106.02087]
+        ]
+      ]
     },
     {
       "id": "2",
@@ -28,17 +147,141 @@
       "color": "#1d6fd1",
       "shape": "loop",
       "stops": [
-        { "id": "sheridan", "name": "Sheridan Transit Center", "aliases": ["downtown", "plaza", "transit center", "sheridan"], "lat": 35.6884, "lng": -105.9405 },
-        { "id": "library", "name": "Main Library", "aliases": ["library", "public library", "downtown library"], "lat": 35.6893, "lng": -105.9374 },
-        { "id": "hospital", "name": "Christus St. Vincent hospital", "aliases": ["hospital", "st vincent", "christus", "saint vincent", "st vincents"], "lat": 35.6618, "lng": -105.9452 },
-        { "id": "stmichaels-llano", "name": "St. Michael's Dr & Llano St", "aliases": ["st michaels and llano", "llano"], "lat": 35.6598, "lng": -105.9615 }
+        {
+          "id": "sheridan",
+          "name": "Sheridan Transit Center",
+          "aliases": [
+            "downtown",
+            "plaza",
+            "transit center",
+            "sheridan"
+          ],
+          "lat": 35.6884,
+          "lng": -105.9405
+        },
+        {
+          "id": "library",
+          "name": "Main Library",
+          "aliases": [
+            "library",
+            "public library",
+            "downtown library"
+          ],
+          "lat": 35.6893,
+          "lng": -105.9374
+        },
+        {
+          "id": "hospital",
+          "name": "Christus St. Vincent hospital",
+          "aliases": [
+            "hospital",
+            "st vincent",
+            "christus",
+            "saint vincent",
+            "st vincents"
+          ],
+          "lat": 35.6618,
+          "lng": -105.9452
+        },
+        {
+          "id": "stmichaels-llano",
+          "name": "St. Michael's Dr & Llano St",
+          "aliases": [
+            "st michaels and llano",
+            "llano"
+          ],
+          "lat": 35.6598,
+          "lng": -105.9615
+        }
       ],
-      "travelMinutes": [3, 9, 5, 11],
+      "travelMinutes": [
+        3,
+        9,
+        5,
+        11
+      ],
       "service": {
-        "weekday":  { "firstTrip": "05:30", "lastTrip": "22:00", "headwayMinutes": 30 },
-        "saturday": { "firstTrip": "07:00", "lastTrip": "20:00", "headwayMinutes": 30 },
+        "weekday": {
+          "firstTrip": "05:30",
+          "lastTrip": "22:00",
+          "headwayMinutes": 30
+        },
+        "saturday": {
+          "firstTrip": "07:00",
+          "lastTrip": "20:00",
+          "headwayMinutes": 30
+        },
         "sunday": null
-      }
+      },
+      "waypoints": [
+        [
+          [35.6884, -105.94064],
+          [35.68993, -105.94023]
+        ],
+        [
+          [35.68803, -105.93361],
+          [35.68504, -105.93398],
+          [35.68277, -105.93403],
+          [35.68151, -105.9345],
+          [35.68112, -105.93491],
+          [35.68103, -105.93529],
+          [35.68148, -105.93661],
+          [35.68162, -105.93809],
+          [35.67664, -105.937],
+          [35.67535, -105.93712],
+          [35.67458, -105.93702],
+          [35.67173, -105.93576],
+          [35.67065, -105.93583],
+          [35.66935, -105.93631],
+          [35.66793, -105.93656],
+          [35.66455, -105.93673],
+          [35.66424, -105.93683],
+          [35.66436, -105.93806],
+          [35.66302, -105.94577],
+          [35.66169, -105.94574],
+          [35.66154, -105.94544]
+        ],
+        [
+          [35.66154, -105.94544],
+          [35.66169, -105.94574],
+          [35.66302, -105.94577],
+          [35.66306, -105.94645],
+          [35.66376, -105.94846],
+          [35.66226, -105.94925],
+          [35.66143, -105.94993],
+          [35.66082, -105.95076],
+          [35.65921, -105.95174],
+          [35.65874, -105.95186],
+          [35.65957, -105.96168],
+          [35.65983, -105.96168]
+        ],
+        [
+          [35.65983, -105.96168],
+          [35.65938, -105.96169],
+          [35.65924, -105.95938],
+          [35.66168, -105.95977],
+          [35.66217, -105.95636],
+          [35.66885, -105.95587],
+          [35.67023, -105.95546],
+          [35.67318, -105.95392],
+          [35.67414, -105.95358],
+          [35.6755, -105.95344],
+          [35.67747, -105.95363],
+          [35.67819, -105.95299],
+          [35.67861, -105.95231],
+          [35.6798, -105.9497],
+          [35.68019, -105.9484],
+          [35.68089, -105.9487],
+          [35.68172, -105.9485],
+          [35.68271, -105.94759],
+          [35.68388, -105.94614],
+          [35.68636, -105.94496],
+          [35.68716, -105.94402],
+          [35.68824, -105.94338],
+          [35.68789, -105.94185],
+          [35.68844, -105.94155]
+        ]
+      ]
     },
     {
       "id": "3",
@@ -46,17 +289,116 @@
       "color": "#2a9d4b",
       "shape": "out-and-back",
       "stops": [
-        { "id": "sheridan", "name": "Sheridan Transit Center", "aliases": ["downtown", "plaza", "transit center", "sheridan"], "lat": 35.6884, "lng": -105.9405 },
-        { "id": "south-capitol", "name": "South Capitol station", "aliases": ["south capitol", "capitol", "capitol station"], "lat": 35.6713, "lng": -105.9512 },
-        { "id": "rodeo-richards", "name": "Rodeo Rd & Richards Ave", "aliases": ["rodeo and richards", "richards and rodeo"], "lat": 35.6383, "lng": -105.9925 },
-        { "id": "sfcc", "name": "Santa Fe Community College", "aliases": ["community college", "college", "sfcc"], "lat": 35.6125, "lng": -105.9975 }
+        {
+          "id": "sheridan",
+          "name": "Sheridan Transit Center",
+          "aliases": [
+            "downtown",
+            "plaza",
+            "transit center",
+            "sheridan"
+          ],
+          "lat": 35.6884,
+          "lng": -105.9405
+        },
+        {
+          "id": "south-capitol",
+          "name": "South Capitol station",
+          "aliases": [
+            "south capitol",
+            "capitol",
+            "capitol station"
+          ],
+          "lat": 35.6713,
+          "lng": -105.9512
+        },
+        {
+          "id": "rodeo-richards",
+          "name": "Rodeo Rd & Richards Ave",
+          "aliases": [
+            "rodeo and richards",
+            "richards and rodeo"
+          ],
+          "lat": 35.6383,
+          "lng": -105.9925
+        },
+        {
+          "id": "sfcc",
+          "name": "Santa Fe Community College",
+          "aliases": [
+            "community college",
+            "college",
+            "sfcc"
+          ],
+          "lat": 35.6125,
+          "lng": -105.9975
+        }
       ],
-      "travelMinutes": [5, 10, 7],
+      "travelMinutes": [
+        5,
+        10,
+        7
+      ],
       "service": {
-        "weekday":  { "firstTrip": "05:30", "lastTrip": "21:50", "headwayMinutes": 20 },
+        "weekday": {
+          "firstTrip": "05:30",
+          "lastTrip": "21:50",
+          "headwayMinutes": 20
+        },
         "saturday": null,
         "sunday": null
-      }
+      },
+      "waypoints": [
+        [
+          [35.68844, -105.94155],
+          [35.68789, -105.94185],
+          [35.6883, -105.94346],
+          [35.68764, -105.94373],
+          [35.68639, -105.94505],
+          [35.68396, -105.94615],
+          [35.68265, -105.9478],
+          [35.68182, -105.94858],
+          [35.6812, -105.94883],
+          [35.68077, -105.9488],
+          [35.68, -105.94844],
+          [35.67941, -105.94794],
+          [35.67315, -105.94852],
+          [35.67223, -105.94903],
+          [35.67101, -105.94943],
+          [35.67137, -105.95089]
+        ],
+        [
+          [35.67138, -105.95094],
+          [35.67125, -105.95037],
+          [35.67, -105.95077],
+          [35.67107, -105.95526],
+          [35.6691, -105.95602],
+          [35.65789, -105.9568],
+          [35.6471, -105.95665],
+          [35.64697, -105.96251],
+          [35.64604, -105.96448],
+          [35.64489, -105.97002],
+          [35.64425, -105.97201],
+          [35.64281, -105.97444],
+          [35.64138, -105.9762],
+          [35.64037, -105.97709],
+          [35.6401, -105.97763],
+          [35.63996, -105.98377],
+          [35.63892, -105.98645],
+          [35.6389, -105.99225]
+        ],
+        [
+          [35.6389, -105.99225],
+          [35.63892, -106.0006],
+          [35.6196, -106.00048],
+          [35.61897, -106.00066],
+          [35.61825, -106.00047],
+          [35.61224, -106.00054],
+          [35.61169, -106.00067],
+          [35.61172, -105.99855],
+          [35.61195, -105.99726]
+        ]
+      ]
     },
     {
       "id": "4",
@@ -64,16 +406,75 @@
       "color": "#8e44ad",
       "shape": "out-and-back",
       "stops": [
-        { "id": "sheridan", "name": "Sheridan Transit Center", "aliases": ["downtown", "plaza", "transit center", "sheridan"], "lat": 35.6884, "lng": -105.9405 },
-        { "id": "canyon-rd", "name": "Canyon Rd", "aliases": ["canyon road", "galleries"], "lat": 35.6822, "lng": -105.9290 },
-        { "id": "museum-hill", "name": "Museum Hill", "aliases": ["museums", "milner plaza", "museum"], "lat": 35.6703, "lng": -105.9230 }
+        {
+          "id": "sheridan",
+          "name": "Sheridan Transit Center",
+          "aliases": [
+            "downtown",
+            "plaza",
+            "transit center",
+            "sheridan"
+          ],
+          "lat": 35.6884,
+          "lng": -105.9405
+        },
+        {
+          "id": "canyon-rd",
+          "name": "Canyon Rd",
+          "aliases": [
+            "canyon road",
+            "galleries"
+          ],
+          "lat": 35.6822,
+          "lng": -105.929
+        },
+        {
+          "id": "museum-hill",
+          "name": "Museum Hill",
+          "aliases": [
+            "museums",
+            "milner plaza",
+            "museum"
+          ],
+          "lat": 35.6703,
+          "lng": -105.923
+        }
       ],
       "travelMinutes": [5, 7],
       "service": {
-        "weekday":  { "firstTrip": "05:30", "lastTrip": "21:30", "headwayMinutes": 60 },
-        "saturday": { "firstTrip": "07:00", "lastTrip": "20:00", "headwayMinutes": 60 },
+        "weekday": {
+          "firstTrip": "05:30",
+          "lastTrip": "21:30",
+          "headwayMinutes": 60
+        },
+        "saturday": {
+          "firstTrip": "07:00",
+          "lastTrip": "20:00",
+          "headwayMinutes": 60
+        },
         "sunday": null
-      }
+      },
+      "waypoints": [
+        [
+          [35.6884, -105.94064],
+          [35.68993, -105.94023],
+          [35.68913, -105.93707],
+          [35.68803, -105.93361],
+          [35.68379, -105.93404],
+          [35.68299, -105.93278],
+          [35.68191, -105.92907]
+        ],
+        [
+          [35.68191, -105.92907],
+          [35.68083, -105.92578],
+          [35.68039, -105.92491],
+          [35.67803, -105.92545],
+          [35.67607, -105.92546],
+          [35.67533, -105.9252],
+          [35.67211, -105.92248],
+          [35.6699, -105.9223]
+        ]
+      ]
     }
   ]
 }
