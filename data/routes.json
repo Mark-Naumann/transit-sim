@@ -1,0 +1,79 @@
+{
+  "agency": "Juniper Valley Transit (JVT) - fictional demo agency",
+  "timezone": "America/Denver",
+  "notes": "Fake schedule data on real Santa Fe streets. Coordinates are approximate. 'travelMinutes[i]' is the time from stops[i] to stops[i+1]. Times are 24-hour HH:MM. 'firstTrip' and 'lastTrip' are departure times from the first stop. A null service day means no buses that day.",
+  "routes": [
+    {
+      "id": "1",
+      "name": "Cerrillos",
+      "color": "#d62828",
+      "shape": "out-and-back",
+      "stops": [
+        { "id": "sheridan", "name": "Sheridan Transit Center", "aliases": ["downtown", "plaza", "transit center", "sheridan"], "lat": 35.6884, "lng": -105.9405 },
+        { "id": "railyard", "name": "Railyard", "aliases": ["rail yard", "santa fe depot", "depot", "railyard station"], "lat": 35.6838, "lng": -105.9466 },
+        { "id": "cerrillos-stmichaels", "name": "Cerrillos Rd & St. Michael's Dr", "aliases": ["cerrillos and st michaels", "st michaels and cerrillos"], "lat": 35.6578, "lng": -105.9737 },
+        { "id": "cerrillos-rodeo", "name": "Cerrillos Rd & Rodeo Rd", "aliases": ["cerrillos and rodeo", "rodeo and cerrillos"], "lat": 35.6386, "lng": -106.0125 },
+        { "id": "mall", "name": "Santa Fe Place Mall", "aliases": ["mall", "santa fe place"], "lat": 35.6335, "lng": -106.0205 }
+      ],
+      "travelMinutes": [4, 8, 7, 4],
+      "service": {
+        "weekday":  { "firstTrip": "05:30", "lastTrip": "22:00", "headwayMinutes": 15 },
+        "saturday": { "firstTrip": "07:00", "lastTrip": "20:00", "headwayMinutes": 30 },
+        "sunday": null
+      }
+    },
+    {
+      "id": "2",
+      "name": "Hospital Loop",
+      "color": "#1d6fd1",
+      "shape": "loop",
+      "stops": [
+        { "id": "sheridan", "name": "Sheridan Transit Center", "aliases": ["downtown", "plaza", "transit center", "sheridan"], "lat": 35.6884, "lng": -105.9405 },
+        { "id": "library", "name": "Main Library", "aliases": ["library", "public library", "downtown library"], "lat": 35.6893, "lng": -105.9374 },
+        { "id": "hospital", "name": "Christus St. Vincent hospital", "aliases": ["hospital", "st vincent", "christus", "saint vincent", "st vincents"], "lat": 35.6618, "lng": -105.9452 },
+        { "id": "stmichaels-llano", "name": "St. Michael's Dr & Llano St", "aliases": ["st michaels and llano", "llano"], "lat": 35.6598, "lng": -105.9615 }
+      ],
+      "travelMinutes": [3, 9, 5, 11],
+      "service": {
+        "weekday":  { "firstTrip": "05:30", "lastTrip": "22:00", "headwayMinutes": 30 },
+        "saturday": { "firstTrip": "07:00", "lastTrip": "20:00", "headwayMinutes": 30 },
+        "sunday": null
+      }
+    },
+    {
+      "id": "3",
+      "name": "College",
+      "color": "#2a9d4b",
+      "shape": "out-and-back",
+      "stops": [
+        { "id": "sheridan", "name": "Sheridan Transit Center", "aliases": ["downtown", "plaza", "transit center", "sheridan"], "lat": 35.6884, "lng": -105.9405 },
+        { "id": "south-capitol", "name": "South Capitol station", "aliases": ["south capitol", "capitol", "capitol station"], "lat": 35.6713, "lng": -105.9512 },
+        { "id": "rodeo-richards", "name": "Rodeo Rd & Richards Ave", "aliases": ["rodeo and richards", "richards and rodeo"], "lat": 35.6383, "lng": -105.9925 },
+        { "id": "sfcc", "name": "Santa Fe Community College", "aliases": ["community college", "college", "sfcc"], "lat": 35.6125, "lng": -105.9975 }
+      ],
+      "travelMinutes": [5, 10, 7],
+      "service": {
+        "weekday":  { "firstTrip": "05:30", "lastTrip": "21:50", "headwayMinutes": 20 },
+        "saturday": null,
+        "sunday": null
+      }
+    },
+    {
+      "id": "4",
+      "name": "Museum Hill",
+      "color": "#8e44ad",
+      "shape": "out-and-back",
+      "stops": [
+        { "id": "sheridan", "name": "Sheridan Transit Center", "aliases": ["downtown", "plaza", "transit center", "sheridan"], "lat": 35.6884, "lng": -105.9405 },
+        { "id": "canyon-rd", "name": "Canyon Rd", "aliases": ["canyon road", "galleries"], "lat": 35.6822, "lng": -105.9290 },
+        { "id": "museum-hill", "name": "Museum Hill", "aliases": ["museums", "milner plaza", "museum"], "lat": 35.6703, "lng": -105.9230 }
+      ],
+      "travelMinutes": [5, 7],
+      "service": {
+        "weekday":  { "firstTrip": "05:30", "lastTrip": "21:30", "headwayMinutes": 60 },
+        "saturday": { "firstTrip": "07:00", "lastTrip": "20:00", "headwayMinutes": 60 },
+        "sunday": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "transit-sim",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Simulated buses for the fictional Juniper Valley Transit demo, with a live map and a Vapi voice-agent API.",
+  "scripts": {
+    "start": "node dev-server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "license": "MIT"
+}

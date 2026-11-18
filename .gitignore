@@ -1,0 +1,13 @@
+# Secrets - never commit these
+.env
+.env.*
+
+# Installed packages
+node_modules/
+
+# Vercel's local settings folder
+.vercel
+
+# Operating system clutter
+.DS_Store
+Thumbs.db
