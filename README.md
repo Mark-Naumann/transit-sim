@@ -4,6 +4,11 @@
 > Santa Fe, New Mexico streets and landmarks, but this project is **not affiliated
 > with the City of Santa Fe** or any real transit agency.
 
+🎬 **Demo video:** coming soon · 🚌 **Live map:** https://transit-sim-sigma.vercel.app
+
+**Used by:** Jordan v10 ([transit-agent](https://github.com/Mark-Naumann/transit-agent)), the
+JVT voice agent, whose `get_next_bus` (tool v4) and `plan_trip` tools call `/api/vapi`.
+
 ## What it does
 
 - **Live map** (`/`): four bus routes drawn on an OpenStreetMap map of Santa Fe, with
@@ -166,7 +171,7 @@ scripts/fetch-waypoints.js    one-time: get street paths between stops from OSRM
 scripts/make-office-audio.py  one-time: generate the background audio (numpy + ffmpeg)
 ```
 
-## What I'd improve next
+## What I'd do next
 
 - **Exact stop positions**: a few stops sit on a side road instead of the named street,
   which makes small detours in the line; move them onto the street and re-run
@@ -184,3 +189,12 @@ scripts/make-office-audio.py  one-time: generate the background audio (numpy + f
 - **Holidays and service alerts**: special schedules and "detour" messages.
 - **Smoother animation**: move markers continuously between updates.
 - **Accessibility**: a text-only list of buses for screen readers.
+
+## Related projects
+
+| Repo | What it is |
+|---|---|
+| [transit-agent](https://github.com/Mark-Naumann/transit-agent) | Jordan, the Vapi voice agent that uses this API |
+| [painting-agent](https://github.com/Mark-Naumann/painting-agent) | Sam, my other voice agent (painting company receptionist) |
+| [call-analyzer](https://github.com/Mark-Naumann/call-analyzer) | AI quality review of every call, with real findings |
+| [call-analytics](https://github.com/Mark-Naumann/call-analytics) | Python + SQLite monitoring for both agents |
