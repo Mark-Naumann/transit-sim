@@ -10,6 +10,13 @@
   bus markers that move every 5 seconds and a sidebar showing each route's next departures.
 - **Next-bus API** (`GET /api/next-bus?route=2&stop=library`): returns the next two
   arrivals at a stop, how many minutes away they are, and where the bus is now.
+  **`route` is optional**: `/api/next-bus?stop=sheridan` checks every route that serves
+  the stop ("Route 3 reaches Sheridan Transit Center in 9 minutes, Route 1 in 14 minutes…").
+- **Trip planner** (`GET /api/plan-trip?from=mall&to=hospital`): the best trip using the
+  live simulated times, direct or with one transfer at Sheridan Transit Center:
+  *"Take Route 1 from Santa Fe Place Mall to Sheridan Transit Center, then transfer to
+  Route 2 to Christus St. Vincent hospital. Next bus leaves in 14 minutes, about 1 hour
+  3 minutes total."*
 - **Voice-agent API** (`POST /api/vapi`): a webhook for a [Vapi](https://vapi.ai) voice
   agent. A caller can ask "When's the next Route 1 bus to the mall?" and the agent
   reads back a short answer such as:
@@ -63,8 +70,14 @@ System hours: Mon–Fri 5:30am–10pm, Sat 7am–8pm, no Sunday service.
 
 ### Using it with Vapi
 
-Create a custom **tool** (function) in Vapi with two string parameters, `route` and
-`stop`, and set its server URL to `https://<your-vercel-url>/api/vapi`.
+Create custom **tools** (functions) in Vapi, both with the server URL
+`https://<your-vercel-url>/api/vapi`. The webhook picks the tool by its name:
+
+| Tool name | Parameters (strings) | What it answers |
+|---|---|---|
+| `get_next_bus` | `stop` (required), `route` (optional) | Next arrivals at a stop |
+| `plan_trip` | `from`, `to` (both required) | Best trip, with one transfer at Sheridan if needed |
+
 Vapi sends:
 
 ```json
@@ -83,6 +96,17 @@ Stop and route names are matched loosely: "the library", "Main Library", "route 
 "hospital loop", "St. Vincent" all work. If a stop isn't found, the answer lists the
 stops on that route. After the last bus, it says when the first bus runs tomorrow (or
 on Monday, if tomorrow is Sunday).
+
+**Places that aren't stops.** `routes.json` also has a short list of well-known places
+(the Plaza, the Roundhouse, Meow Wolf, the Folk Art Museum, the airport…). Ask for one
+and the answer starts with the closest stop: *"Museum of International Folk Art isn't a
+bus stop. The closest stop is Museum Hill, about 0.1 miles away."* Anything else gets the
+list of stops rather than a guess.
+
+**How the trip planner works** (`lib/planner.js`): it checks every route for a direct
+ride from A to B, then every "ride to Sheridan, walk 2 minutes, ride from Sheridan"
+combination, and picks the one that arrives first (ties: fewer transfers, then the one
+that leaves later so you wait less).
 
 ## Swapping in a real GTFS feed
 
@@ -118,14 +142,20 @@ Try the API in a second terminal:
 curl "http://localhost:3000/api/next-bus?route=2&stop=library"
 ```
 
+```bash
+curl "http://localhost:3000/api/plan-trip?from=mall&to=hospital"
+```
+
 ## Project layout
 
 ```
 data/routes.json      all route, stop and schedule data (the fake "feed")
-lib/simulation.js     schedule math, bus positions, name matching, spoken answers
+lib/simulation.js     schedule math, bus positions, name/place matching, spoken answers
+lib/planner.js        trip planner (direct or one transfer at Sheridan)
 lib/http.js           helper to send JSON responses
-api/next-bus.js       GET  /api/next-bus
-api/vapi.js           POST /api/vapi  (Vapi tool-call webhook)
+api/next-bus.js       GET  /api/next-bus   (route optional)
+api/plan-trip.js      GET  /api/plan-trip
+api/vapi.js           POST /api/vapi  (Vapi webhook: get_next_bus and plan_trip tools)
 api/live.js           GET  /api/live  (data for the map)
 public/index.html     the live map page
 public/audio/         office-quiet.mp3 background ambience for the voice agent
@@ -144,6 +174,11 @@ scripts/make-office-audio.py  one-time: generate the background audio (numpy + f
 - **Real data**: plug in a live GTFS-realtime feed as described above.
 - **Both directions in the voice answer**: let the caller say which way they're going
   ("toward the mall") instead of listing whichever bus comes first.
+- **Timed transfers**: line up schedules at Sheridan (a "pulse") so riders don't wait
+  half an hour between buses, e.g. mall → hospital is 35 minutes of riding but over an
+  hour door to door today.
+- **Real geocoding**: look up any address (e.g. OpenStreetMap Nominatim) instead of a
+  fixed list of landmarks, and include walking time to the stop in trip plans.
 - **Security**: check Vapi's secret header on `/api/vapi` so only my agent can call it
   (the secret would live in `.env` and in Vercel's environment variables).
 - **Holidays and service alerts**: special schedules and "detour" messages.

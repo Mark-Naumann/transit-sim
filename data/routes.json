@@ -1,7 +1,7 @@
 {
   "agency": "Juniper Valley Transit (JVT) - fictional demo agency",
   "timezone": "America/Denver",
-  "notes": "Fake schedule data on real Santa Fe streets. Coordinates are approximate. 'travelMinutes[i]' is the time from stops[i] to stops[i+1]. Times are 24-hour HH:MM. 'firstTrip' and 'lastTrip' are departure times from the first stop. A null service day means no buses that day.",
+  "notes": "Fake schedule data on real Santa Fe streets. Coordinates are approximate. 'travelMinutes[i]' is the time from stops[i] to stops[i+1]. Times are 24-hour HH:MM. 'firstTrip' and 'lastTrip' are departure times from the first stop. A null service day means no buses that day. \"places\" are well-known spots that are not bus stops; the app tells callers which stop is closest to them.",
   "routes": [
     {
       "id": "1",
@@ -475,6 +475,116 @@
           [35.6699, -105.9223]
         ]
       ]
+    }
+  ],
+  "places": [
+    {
+      "name": "Santa Fe Plaza",
+      "aliases": [
+        "the plaza",
+        "downtown plaza"
+      ],
+      "lat": 35.687,
+      "lng": -105.9378
+    },
+    {
+      "name": "Cathedral Basilica of St. Francis",
+      "aliases": [
+        "cathedral",
+        "st francis cathedral",
+        "basilica"
+      ],
+      "lat": 35.6862,
+      "lng": -105.9364
+    },
+    {
+      "name": "Loretto Chapel",
+      "aliases": [
+        "loretto",
+        "miraculous staircase"
+      ],
+      "lat": 35.6853,
+      "lng": -105.9375
+    },
+    {
+      "name": "Georgia O'Keeffe Museum",
+      "aliases": [
+        "okeeffe museum",
+        "okeeffe"
+      ],
+      "lat": 35.6891,
+      "lng": -105.9413
+    },
+    {
+      "name": "New Mexico State Capitol",
+      "aliases": [
+        "roundhouse",
+        "state capitol",
+        "capitol building"
+      ],
+      "lat": 35.6825,
+      "lng": -105.9398
+    },
+    {
+      "name": "Railyard Park and Farmers Market",
+      "aliases": [
+        "farmers market",
+        "railyard park"
+      ],
+      "lat": 35.683,
+      "lng": -105.9482
+    },
+    {
+      "name": "Meow Wolf",
+      "aliases": [
+        "house of eternal return"
+      ],
+      "lat": 35.6546,
+      "lng": -105.9957
+    },
+    {
+      "name": "Santa Fe High School",
+      "aliases": [
+        "high school"
+      ],
+      "lat": 35.664,
+      "lng": -105.961
+    },
+    {
+      "name": "Genoveva Chavez Community Center",
+      "aliases": [
+        "chavez center",
+        "genoveva chavez",
+        "ice rink"
+      ],
+      "lat": 35.6393,
+      "lng": -105.985
+    },
+    {
+      "name": "Museum of International Folk Art",
+      "aliases": [
+        "folk art museum",
+        "folk art"
+      ],
+      "lat": 35.6697,
+      "lng": -105.9238
+    },
+    {
+      "name": "St. John's College",
+      "aliases": [
+        "st johns",
+        "st johns college"
+      ],
+      "lat": 35.6716,
+      "lng": -105.9113
+    },
+    {
+      "name": "Santa Fe Regional Airport",
+      "aliases": [
+        "airport"
+      ],
+      "lat": 35.617,
+      "lng": -106.089
     }
   ]
 }

@@ -7,8 +7,13 @@
 //                                      "arguments": { "route": "2", "stop": "library" } } } ] } }
 // We reply:
 //   { "results": [ { "toolCallId": "abc", "result": "The next Route 2 bus..." } ] }
+//
+// Two tools are handled, chosen by function.name:
+//   get_next_bus(stop, route?)  - next arrivals (route is optional)
+//   plan_trip(from, to)         - best trip, with one transfer at Sheridan if needed
 
 const { answerNextBus, getDenverClock } = require('../lib/simulation');
+const { planTrip } = require('../lib/planner');
 const { sendJson } = require('../lib/http');
 
 // Vapi may send arguments as an object or as a JSON string. Handle both.
@@ -48,8 +53,13 @@ module.exports = (req, res) => {
 
   const clock = getDenverClock(new Date());
   const results = calls.map((call) => {
-    const { route, stop } = readArguments(call);
-    const answer = answerNextBus(route, stop, clock);
+    const args = readArguments(call);
+    const toolName = (call.function && call.function.name) || '';
+
+    // plan_trip(from, to) -> trip planner. Anything else (get_next_bus) -> next bus.
+    const answer = toolName === 'plan_trip'
+      ? planTrip(args.from, args.to, clock)
+      : answerNextBus(args.route, args.stop, clock); // route is optional
     return { toolCallId: call.id, result: answer.message };
   });
 

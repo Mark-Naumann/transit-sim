@@ -44,6 +44,18 @@ test('location describes the SAME bus as the first arrival, in plain words', () 
   assert.strictEqual(onMap.lastStop, next.bus.justLeft);
 });
 
+test('a bus that must turn around first says so', () => {
+  // Route 4, Monday 10:36: the 10:30 bus passed Canyon Rd at 10:35 going OUT.
+  // It reaches Museum Hill at 10:42, turns around, and is back at Canyon Rd at 10:49.
+  const answer = sim.answerNextBus('4', 'canyon road', at(MONDAY, 10, 36));
+  assert.strictEqual(answer.arrivals[0].minutesAway, 13);
+  assert.match(answer.message, /It's 2 stops away, just left Canyon Rd, and will turn around at Museum Hill first\./);
+
+  // The Mall IS the end of the line, so no turn-around note there.
+  const mall = sim.answerNextBus('1', 'mall', at(MONDAY, 10, 13));
+  assert.doesNotMatch(mall.message, /turn around/);
+});
+
 test('every minute of a weekday, at every stop, the location matches the arriving bus', () => {
   for (let minute = 0; minute < 24 * 60; minute++) {
     const clock = { day: MONDAY, minutes: minute };
