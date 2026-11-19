@@ -87,7 +87,7 @@ Vapi sends:
 
 ```json
 { "message": { "type": "tool-calls",
-  "toolCallList": [ { "id": "call_1", "function": { "name": "next_bus",
+  "toolCallList": [ { "id": "call_1", "function": { "name": "get_next_bus",
     "arguments": { "route": "2", "stop": "the library" } } } ] } }
 ```
 
